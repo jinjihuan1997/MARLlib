@@ -95,7 +95,8 @@ def make_env(
         env_config_file_path = os.path.join(os.path.dirname(__file__),
                                             "../envs/base_env/config/{}.yaml".format(environment_name))
 
-    with open(env_config_file_path, "r", encoding="utf-8") as f:
+
+    with open(env_config_file_path, "r") as f:
         env_config_dict = yaml.load(f, Loader=yaml.FullLoader)
         f.close()
 
@@ -260,7 +261,8 @@ class _Algo:
         if not os.path.exists(os.path.join(os.path.dirname(__file__), rel_path)):
             rel_path = "../../examples/config/algo_config/{}.yaml".format(self.name)
 
-        with open(os.path.join(os.path.dirname(__file__), rel_path), "r", encoding="utf-8") as f:
+
+        with open(os.path.join(os.path.dirname(__file__), rel_path), "r") as f:
             algo_config_dict = yaml.load(f, Loader=yaml.FullLoader)
             f.close()
 

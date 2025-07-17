@@ -170,3 +170,4 @@ try:
 except ImportError as e:
     print(f"Warning: Failed to import DisasterEnv: {e}")
     ENV_REGISTRY["disaster"] = None
+    ENV_REGISTRY["sisl"] = str(e)

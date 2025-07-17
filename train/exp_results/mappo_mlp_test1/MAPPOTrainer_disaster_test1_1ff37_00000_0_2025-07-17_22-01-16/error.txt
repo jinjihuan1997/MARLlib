@@ -1,0 +1,54 @@
+Failure # 1 (occurred at 2025-07-17_22-02-45)
+Traceback (most recent call last):
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\tune\trial_runner.py", line 890, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\tune\ray_trial_executor.py", line 788, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\_private\client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\worker.py", line 1625, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(TypeError): [36mray::MAPPOTrainer.train()[39m (pid=42564, ip=127.0.0.1, repr=MAPPOTrainer)
+  File "python\ray\_raylet.pyx", line 565, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 569, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 519, in ray._raylet.execute_task.function_executor
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\_private\function_manager.py", line 576, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\util\tracing\tracing_helper.py", line 451, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\agents\trainer.py", line 682, in train
+    raise e
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\agents\trainer.py", line 668, in train
+    result = Trainable.train(self)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\tune\trainable.py", line 283, in train
+    result = self.step()
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\util\tracing\tracing_helper.py", line 451, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\agents\trainer_template.py", line 240, in step
+    evaluation_metrics = self.evaluate()
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\util\tracing\tracing_helper.py", line 451, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\agents\trainer.py", line 902, in evaluate
+    self._sync_weights_to_workers(worker_set=self.evaluation_workers)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\util\tracing\tracing_helper.py", line 451, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\agents\trainer.py", line 1007, in _sync_weights_to_workers
+    worker_set.foreach_worker(lambda w: w.restore(ray.get(weights)))
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\evaluation\worker_set.py", line 181, in foreach_worker
+    local_result = [func(self.local_worker())]
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\agents\trainer.py", line 1007, in <lambda>
+    worker_set.foreach_worker(lambda w: w.restore(ray.get(weights)))
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\evaluation\rollout_worker.py", line 1294, in restore
+    self.policy_map[pid].set_state(state)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\policy\torch_policy.py", line 788, in set_state
+    optim_state_dict = convert_to_torch_tensor(
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\utils\torch_ops.py", line 128, in convert_to_torch_tensor
+    return tree.map_structure(mapping, x)
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\tree\__init__.py", line 435, in map_structure
+    [func(*args) for args in zip(*map(flatten, structures))])
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\tree\__init__.py", line 435, in <listcomp>
+    [func(*args) for args in zip(*map(flatten, structures))])
+  File "C:\Radioconda\envs\MARLlib\lib\site-packages\ray\rllib\utils\torch_ops.py", line 122, in mapping
+    tensor = torch.from_numpy(np.asarray(item))
+TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, complex64, complex128, int64, int32, int16, int8, uint64, uint32, uint16, uint8, and bool.
+

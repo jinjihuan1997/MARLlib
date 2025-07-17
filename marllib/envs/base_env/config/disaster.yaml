@@ -1,0 +1,15 @@
+env: disaster
+
+env_args:
+  seed: 42
+  debug: false
+  local_only: false
+  num_agents: 4
+  num_ds: 60
+  episode_limit: 1000
+  map_name: test1
+
+mask_flag: False
+global_state_flag: False
+opp_action_in_cc: True
+agent_level_batch_update: False

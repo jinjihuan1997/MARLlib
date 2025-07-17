@@ -1,0 +1,45 @@
+# 文件路径: marllib/marl/algos/hyperparams/finetuned/disaster/mappo.yaml
+
+# —— MAPPO 算法专用超参数 ——
+algo_args:
+  # PPO/GAE 相关
+  use_gae: true
+  lambda: 0.95
+  kl_coeff: 0.2
+
+  # 方案1：使用完整episode（推荐）
+  batch_mode: "complete_episodes"      # 收集完整的episodes
+  rollout_fragment_length: 1000        # 设置为您的episode长度
+  batch_episode: 4
+  train_batch_size: 4000               # 4个完整episodes
+
+  # 或者方案2：如果内存有限，使用较大的fragment
+  # batch_mode: "truncate_episodes"
+  # rollout_fragment_length: 500        # 每个episode分成2段
+  # train_batch_size: 4000              # 8个fragments = 4个episodes
+
+  num_sgd_iter: 5
+  sgd_minibatch_size: 256              # 可以适当增大
+
+  vf_loss_coeff: 1.0
+  lr: 0.0003
+  entropy_coeff: 0.01
+  clip_param: 0.2
+  vf_clip_param: 10.0
+
+  # 添加：确保价值函数bootstrap正确
+  gamma: 0.99                          # 折扣因子
+  horizon: 1000                        # 设置为episode长度
+
+# —— 模型配置 ——
+model:
+  custom_model_config:
+    opp_action_in_cc: false
+
+# —— run_cc() 里必须的几个字段 ——
+policy_mapping_info:
+  default:
+    all_agents_one_policy: true
+    one_agent_one_policy: true
+
+agent_level_batch_update: false
